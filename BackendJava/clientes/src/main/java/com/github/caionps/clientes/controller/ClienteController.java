@@ -12,6 +12,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
+    //testanto o git
 
     @Autowired
     private ClienteRepository repository;
