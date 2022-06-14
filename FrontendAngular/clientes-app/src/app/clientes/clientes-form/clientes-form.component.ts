@@ -1,3 +1,4 @@
+import { ClientesService } from './../../clientes.service';
 import { Cliente } from './../cliente';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,18 +10,19 @@ import { Component, OnInit } from '@angular/core';
 export class ClientesFormComponent implements OnInit {
 
   cliente: Cliente;
-  nome: string = 'sicrano';
 
-  constructor() {
-    this.cliente = new Cliente;
-    this.cliente.nome = 'Fulano'
-
+  constructor(private service: ClientesService) {
+    this.cliente = new Cliente();
   }
 
   ngOnInit(): void {
   }
 
-  clicar() {
-    console.log('Cliquei!');
+  onSubmit() {
+    this.service
+      .salvar(this.cliente)
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 }
