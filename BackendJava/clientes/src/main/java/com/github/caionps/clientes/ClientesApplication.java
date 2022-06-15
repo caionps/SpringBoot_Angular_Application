@@ -1,7 +1,6 @@
 package com.github.caionps.clientes;
 
-import com.github.caionps.clientes.model.entity.Cliente;
-import com.github.caionps.clientes.model.repository.ClienteRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
