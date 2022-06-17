@@ -13,7 +13,7 @@ export class ClientesFormComponent implements OnInit {
   cliente: Cliente;
   success: boolean = false;
   errors?: String[];
-  id: number = 0;
+  id?: number;
 
   constructor(
     private service: ClientesService,
@@ -27,16 +27,30 @@ export class ClientesFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service
-      .getClienteById(this.id)
-      .subscribe(
-        response => this.cliente = response ,
-        errorResponse => this.cliente = new Cliente()
-      )
+    if (typeof this.id !== 'undefined') {
+      this.service
+        .getClienteById(this.id)
+        .subscribe(
+          response => this.cliente = response ,
+          errorResponse => this.cliente = new Cliente()
+        )
+    }
   }
 
   onSubmit() {
-    this.service
+    if(typeof this.id !== 'undefined'){
+
+      this.service
+      .atualizar(this.cliente)
+      .subscribe(response => {
+        this.success = true;
+        this.errors = [];
+      }, errorResponse => {
+        this.errors = ['Erro ao atualizar o cliente.']
+      })
+
+    }else {
+      this.service
       .salvar(this.cliente)
       .subscribe(response => {
         this.success = true;
@@ -46,6 +60,7 @@ export class ClientesFormComponent implements OnInit {
         this.success = false;
         this.errors = errorResponse.error.errors;
       });
+    }
   }
 
   voltarParaListagem() {
